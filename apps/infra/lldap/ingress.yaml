@@ -8,12 +8,12 @@ spec:
     - match: Host(`lldap.rooty.dev`) && PathPrefix(`/`)
       kind: Rule
       services:
-        - name: http
+        - name: lldap-http
           port: 17170
     - match: Host(`lldap.k8s.rooty.dev`) && PathPrefix(`/`)
       kind: Rule
       services:
-        - name: http
+        - name: lldap-http
           port: 17170
   tls:
     secretName: rooty-dev-wildcard
