@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lldap-ingress
+  namespace: lldap
+spec:
+  routes:
+    - match: Host(`lldap.rooty.dev`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: http
+          port: 17170
+    - match: Host(`lldap.k8s.rooty.dev`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: http
+          port: 17170
+  tls:
+    secretName: rooty-dev-wildcard
