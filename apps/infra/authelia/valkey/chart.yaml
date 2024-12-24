@@ -21,6 +21,6 @@ spec:
       existingSecret: valkey
       existingSecretPasswordKey: password
     replica:
-      replicaCount: 2
+      replicaCount: 3
     sentinel:
       enabled: true
