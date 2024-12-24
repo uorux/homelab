@@ -20,3 +20,5 @@ spec:
         useAllDevices: false
         devices:
           - name: /dev/loop0
+    toolbox:
+      enabled: true
