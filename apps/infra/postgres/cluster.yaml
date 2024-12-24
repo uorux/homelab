@@ -2,6 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: lldap
+  namespace: cnpg
 spec:
   name: lldap
   owner: lldap
@@ -12,6 +13,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: authelia
+  namespace: cnpg
 spec:
   name: authelia
   owner: authelia
