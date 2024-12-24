@@ -1,4 +1,46 @@
 apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: lldap
+spec:
+  name: lldap
+  owner: lldap
+  cluster:
+    name: postgres
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: authelia
+spec:
+  name: authelia
+  owner: authelia
+  cluster:
+    name: postgres
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: authelia-postgres
+  namespace: cnpg
+  annotations:
+   reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+   reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "authelia"
+spec:
+  itemPath: "vaults/k8s/items/authelia-postgres"
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: lldap-postgres
+  namespace: cnpg
+  annotations:
+   reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+   reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "lldap"
+spec:
+  itemPath: "vaults/k8s/items/lldap-postgres"
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
@@ -10,3 +52,19 @@ spec:
   storage:
     size: 16Gi
     storageClass: local-path
+  managed:
+    roles:
+    - name: authelia
+      ensure: present
+      comment: Authelia DB
+      login: true
+      superuser: false
+      passwordSecret:
+        name: authelia-postgres
+    - name: lldap
+      ensure: present
+      comment: LLDAP DB
+      login: true
+      superuser: false
+      passwordSecret:
+        name: lldap-postgres
