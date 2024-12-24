@@ -18,7 +18,7 @@ spec:
     externalPostgresql:
       enabled: true
       auth:
-        host: "postgres-rw.database.svc.cluster.local"
+        host: "postgres-rw.cnpg.svc.cluster.local"
         database: lldap
     lldap:
       baseDN: "dc=internal,dc=rooty,dc=dev"
